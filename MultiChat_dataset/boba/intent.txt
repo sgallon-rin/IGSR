@@ -1,0 +1,17 @@
+0	admiration
+1	neutral
+2	sadness
+3	desire
+4	joy
+5	anger
+6	embarrassment
+7	amusement
+8	gratitude
+9	disapproval
+10	optimism
+11	annoyance
+12	confusion
+13	surprise
+14	realization
+15	love
+16	remorse
