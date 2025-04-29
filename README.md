@@ -3,6 +3,10 @@
 1. Download the [pre-trained weights](https://pan.baidu.com/s/1tNYBhYKbIzYPw7BP7Be3rQ?pwd=3dyx) `clip_cn_vit-b-16.pt` and place them in the directory `IGSR/cn_clip/pretrained_weights`.
 2. In the code, replace `sys.path.append('')` with the appropriate path based on your environment.
 
+## How to get the dataset
+1. Sign the copyright announcement with your name and organization and mail to bingbing.wang@stu.hit.edu.cn with the copyright announcement attachment.
+2. Then complete the form online(https://forms.gle/g5eLLZVmaE43e3DF9), and we will provide access rights when approved.
+
 ## Running the Code
 
 ### 1. Build LMDB Features
@@ -21,6 +25,9 @@ python build_lmdb_dataset_img.py --split val --type intent_style_attribute --mod
 ```bash
 python3 -m torch.distributed.launch --use_env --nproc_per_node=1 --master_port=5555 cn_clip/training/main.py
 ```
+
+## Copyright
+The original copyright of all the conversations belongs to the source owner. The copyright of the annotations belongs to our group, and they are free to the public. The dataset is only for research purposes. Without permission, it may not be used for any commercial purposes or distributed to others.
 
 ## cite the paper
 ```bibtex
