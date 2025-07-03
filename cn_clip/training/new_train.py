@@ -359,7 +359,7 @@ def cosine_similarity(vector1, vector2):
 
 
 def metric_intent_label(json_file):
-    with open('your_path/IGSR/Dataset/' +
+    with open('/home/sgallon/research/sticker-conv/IGSR/Dataset/' +
               args.data_mode + '/' + args.data_mode + '_response.json', 'r',
               encoding='utf-8') as f:
         datas = json.load(f)

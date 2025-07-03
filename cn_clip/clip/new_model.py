@@ -3,8 +3,8 @@ from typing import Tuple, Union
 from itertools import repeat
 import collections.abc
 import sys
-sys.path.append('your_path/IGSR/cn_clip/training')
-from params import is_DDIM, is_att, is_matrix#, num_class
+sys.path.append('/home/sgallon/research/sticker-conv/IGSR/cn_clip/training')
+# from params import is_DDIM, is_att, is_matrix#, num_class
 import math
 import logging
 import numpy as np
@@ -13,9 +13,9 @@ import torch.nn.functional as F
 from torch import nn
 from torch.utils.checkpoint import checkpoint
 
-import importlib.util
-if importlib.util.find_spec('flash_attn'):
-    FlashMHA = importlib.import_module('flash_attn.flash_attention').FlashMHA
+# import importlib.util
+# if importlib.util.find_spec('flash_attn'):
+#     FlashMHA = importlib.import_module('flash_attn.flash_attention').FlashMHA
 
 from cn_clip.clip import _tokenizer
 from cn_clip.clip.configuration_bert import BertConfig

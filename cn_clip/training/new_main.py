@@ -12,7 +12,7 @@ import importlib.util
 import sys
 import torch
 from torch import optim
-import torch.distributed as dist
+# import torch.distributed as dist
 import torch.backends.cudnn as cudnn
 from torch.cuda.amp import GradScaler
 import sys
@@ -55,14 +55,14 @@ def main():
     args = parse_args()
 
     # Set distributed group
-    args.local_device_rank = int(os.environ["LOCAL_RANK"])
+    args.local_device_rank = 0 #int(os.environ["LOCAL_RANK"])
 
     torch.cuda.set_device(args.local_device_rank)
-    args.device = torch.device("cuda:1")  # , args.local_device_rank)
+    args.device = torch.device("cuda:0")  # , args.local_device_rank)
 
-    dist.init_process_group(backend="nccl")
-    args.rank = dist.get_rank()
-    args.world_size = dist.get_world_size()
+    # dist.init_process_group(backend="nccl")
+    args.rank = 0 #dist.get_rank()
+    # args.world_size = dist.get_world_size()
 
     # Set output path
     time_suffix = strftime("%Y-%m-%d-%H-%M-%S", gmtime())
@@ -84,12 +84,12 @@ def main():
 
     # Build the CLIP model
     vision_model_config_file = Path(
-        __file__).parent.parent / f"your_path/IGSR/cn_clip/clip/model_configs/{args.vision_model.replace('/', '-')}.json"
+        __file__).parent.parent / f"/home/sgallon/research/sticker-conv/IGSR/cn_clip/clip/model_configs/{args.vision_model.replace('/', '-')}.json"
     print('Loading vision model config from', vision_model_config_file)
     assert os.path.exists(vision_model_config_file)
 
     text_model_config_file = Path(
-        __file__).parent.parent / f"your_path/IGSR/cn_clip/clip/model_configs/{args.text_model.replace('/', '-')}.json"
+        __file__).parent.parent / f"/home/sgallon/research/sticker-conv/IGSR/cn_clip/clip/model_configs/{args.text_model.replace('/', '-')}.json"
     print('Loading text model config from', text_model_config_file)
     assert os.path.exists(text_model_config_file)
 
@@ -144,9 +144,9 @@ def main():
 
     # To make compatible with torch version <= 1.8.0, set find_unused_parameters to True
     # In other cases, set find_unused_parameters to False
-    find_unused_parameters = torch_version_str_compare_lessequal(torch.__version__, "1.8.0")
-    model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.local_device_rank],
-                                                      find_unused_parameters=find_unused_parameters)
+    # find_unused_parameters = torch_version_str_compare_lessequal(torch.__version__, "1.8.0")
+    # model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.local_device_rank],
+    #                                                   find_unused_parameters=find_unused_parameters)
     # Have to set this when activating grad checkpointing in Pytorch >= 2.0.0
     if args.grad_checkpointing and not torch_version_str_compare_lessequal(torch.__version__, "1.14.0"):
         model._set_static_graph()

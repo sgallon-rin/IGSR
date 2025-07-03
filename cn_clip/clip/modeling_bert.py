@@ -18,7 +18,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 import sys
 sys.path.append('your_path/IGSR/cn_clip/training')
-from params import is_sent_embedding
+# from params import is_sent_embedding
 import json
 import logging
 import math
@@ -30,9 +30,9 @@ import torch
 from torch import nn
 from torch.utils.checkpoint import checkpoint
 
-import importlib.util
-if importlib.util.find_spec('flash_attn'):
-    FlashMHA = importlib.import_module('flash_attn.flash_attention').FlashMHA
+# import importlib.util
+# if importlib.util.find_spec('flash_attn'):
+#     FlashMHA = importlib.import_module('flash_attn.flash_attention').FlashMHA
 
 from .configuration_bert import BertConfig
 
@@ -90,7 +90,7 @@ class BertEmbeddings(nn.Module):
         position_embeddings = self.position_embeddings(position_ids)
         token_type_embeddings = self.token_type_embeddings(token_type_ids)
         sent_embeddings = self.word_embeddings(sent_ids)
-        if is_sent_embedding:
+        if False: #is_sent_embedding:
             embeddings = words_embeddings + position_embeddings + token_type_embeddings + sent_embeddings
         else:
             embeddings = words_embeddings + position_embeddings + token_type_embeddings

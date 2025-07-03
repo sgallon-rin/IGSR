@@ -67,7 +67,8 @@ def commit_pair(image_id_list,b64_list,txn_img_1,write_idx,env_img_1):
 
 if __name__ == "__main__":
     args = parse_args()
-    args.data_dir = 'your_path/IGSR/MultiChat/'
+    # args.data_dir = 'your_path/IGSR/MultiChat/'
+    args.data_dir = '/mnt/tsubasa/sticker_chat_datasets/MultiChat_Dataset/MultiChat-Dataset'
     specified_splits = list(set(args.splits.strip().split(",")))
     print("Dataset splits to be processed: {}".format(", ".join(specified_splits)))
     threshold = args.threshold
@@ -129,7 +130,7 @@ if __name__ == "__main__":
             env_pairs.close()
         print("Finished serializing {} {} split pairs into {}.".format(write_idx, split, lmdb_pairs))
 
-        base64_path = os.path.join('your_path/IGSR/MultiChat',
+        base64_path = os.path.join(args.data_dir,
                                          args.mode+"_"+args.splits+"_img.tsv")
 
         write_idx = 0

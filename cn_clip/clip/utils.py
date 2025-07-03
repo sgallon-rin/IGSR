@@ -9,7 +9,8 @@ from torchvision.transforms import Compose, ToTensor, Normalize, Resize, Interpo
 from tqdm import tqdm
 
 from cn_clip.clip import _tokenizer
-from cn_clip.clip.model import convert_weights, CLIP, restore_model
+# from cn_clip.clip.model import convert_weights, CLIP, restore_model
+from cn_clip.clip.model import convert_weights, restore_model
 
 __all__ = ["load", "tokenize", "available_models", "image_transform", "load_from_name"]
 
@@ -194,6 +195,7 @@ def create_model(model_name, checkpoint=None):
     if isinstance(model_info['vision_layers'], str):
         model_info['vision_layers'] = eval(model_info['vision_layers'])
     print('Model info', model_info)
+    raise NotImplementedError
     model = CLIP(**model_info)
     convert_weights(model)
     if checkpoint:

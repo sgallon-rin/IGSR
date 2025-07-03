@@ -62,7 +62,7 @@ def get_all_features(lmdb_path,split_mode):
         if key.decode('utf-8') != 'num_images':
             img_id_list_1.append(key.decode('utf-8'))
 
-    id2intent_txt = 'your_path/IGSR/MultiChat/all/intent.txt'
+    id2intent_txt = '/home/sgallon/research/sticker-conv/IGSR/MultiChat/all/intent.txt'
     id2intent = {}
     intent2id = {}
     intent2token = {}
