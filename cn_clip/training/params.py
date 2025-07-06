@@ -54,20 +54,20 @@ def parse_args():
     parser.add_argument(
         "--train-data",
         type=str,
-        default='your_path/IGSR/MultiChat/lmdb_'+data_mode+'_intent_style_attribute/train',
+        default='/home/sgallon/research/sticker-conv/IGSR/MultiChat/lmdb_'+data_mode+'_intent_style_attribute/train',
         required=False,
         help="Path to the LMDB directory with training data split",
     )
     parser.add_argument(
         "--val-data",
         type=str,
-        default='your_path/IGSR/MultiChat/lmdb_'+data_mode+'_intent_style_attribute/val',
+        default='/home/sgallon/research/sticker-conv/IGSR/MultiChat/lmdb_'+data_mode+'_intent_style_attribute/val',
         help="Path to the LMDB directory with validation data split, default to None which disables validation",
     )
     parser.add_argument(
         "--test-data",
         type=str,
-        default='your_path/IGSR/MultiChat/lmdb_'+data_mode+'_intent_style_attribute/test',
+        default='/home/sgallon/research/sticker-conv/IGSR/MultiChat/lmdb_'+data_mode+'_intent_style_attribute/test',
         help="Path to the LMDB directory with validation data split, default to None which disables validation",
     )
     parser.add_argument(
@@ -80,7 +80,7 @@ def parse_args():
     parser.add_argument(
         "--logs",
         type=str,
-        default="your_path/IGSR/cn_clip/save/",
+        default="/home/sgallon/research/sticker-conv/IGSR/cn_clip/save/",
         help="Where to store logs. Use None to avoid storing logs.",
     )
     parser.add_argument(
@@ -154,7 +154,7 @@ def parse_args():
     )
     parser.add_argument(
         "--resume",
-        default='your_path/IGSR/cn_clip/pretrained_weights/clip_cn_vit-b-16.pt',
+        default='/home/sgallon/research/sticker-conv/IGSR/cn_clip/pretrained_weights/clip_cn_vit-b-16.pt',
         type=str,
         help="path to latest checkpoint (default: none)",
     )

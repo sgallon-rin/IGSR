@@ -80,10 +80,10 @@ def get_all_features(lmdb_path,split_mode):
     mode_list = ['boba', 'kuaile', 'quanguo', 'yongyuan', 'siban']
     for mo in mode_list:
         with open(
-                'your_path/IGSR/MultiChat/' + mo + '_sample_' + type + '.json') as f:
+                '/home/sgallon/research/sticker-conv/IGSR/MultiChat/' + mo + '_sample_' + type + '.json') as f:
             datas = f.readlines()
             f.close()
-        print('your_path/IGSR/MultiChat/' + mo + '_sample_' + type + '.json')
+        print('/home/sgallon/research/sticker-conv/IGSR/MultiChat/' + mo + '_sample_' + type + '.json')
         for data in datas:
             data = eval(data)
             image_id = data['image_ids']  # + '.jpg'

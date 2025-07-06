@@ -17,8 +17,8 @@ import torch.backends.cudnn as cudnn
 from torch.cuda.amp import GradScaler
 import sys
 
-sys.path.append('your_path/IGSR')
-sys.path.append('your_path/IGSR/cn_clip')
+sys.path.append('/home/sgallon/research/sticker-conv/IGSR')
+sys.path.append('/home/sgallon/research/sticker-conv/IGSR/cn_clip')
 from cn_clip.clip import load
 from cn_clip.clip.new_model import convert_weights, convert_state_dict, resize_pos_embed, CLIP
 from cn_clip.clip.new_model import Classifier, SemanticAttn

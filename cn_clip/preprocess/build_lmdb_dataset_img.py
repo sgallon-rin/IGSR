@@ -67,7 +67,7 @@ def commit_pair(image_id_list,b64_list,txn_img_1,write_idx,env_img_1):
 
 if __name__ == "__main__":
     args = parse_args()
-    # args.data_dir = 'your_path/IGSR/MultiChat/'
+    # args.data_dir = '/home/sgallon/research/sticker-conv/IGSR/MultiChat/'
     args.data_dir = '/mnt/tsubasa/sticker_chat_datasets/MultiChat_Dataset/MultiChat-Dataset'
     specified_splits = list(set(args.splits.strip().split(",")))
     print("Dataset splits to be processed: {}".format(", ".join(specified_splits)))

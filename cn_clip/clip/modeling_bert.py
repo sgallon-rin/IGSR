@@ -17,7 +17,7 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 import sys
-sys.path.append('your_path/IGSR/cn_clip/training')
+sys.path.append('/home/sgallon/research/sticker-conv/IGSR/cn_clip/training')
 # from params import is_sent_embedding
 import json
 import logging
