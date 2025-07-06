@@ -15,7 +15,7 @@ import numpy as np
 
 import torch
 from torch.utils.data import Dataset, DataLoader, Sampler
-# from torch.utils.data.distributed import DistributedSampler
+from torch.utils.data.distributed import DistributedSampler
 from torch.utils.data import RandomSampler
 
 from torchvision.transforms import Compose, Resize, ToTensor, Normalize, InterpolationMode
