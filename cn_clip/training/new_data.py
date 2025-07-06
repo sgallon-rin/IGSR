@@ -15,7 +15,8 @@ import numpy as np
 
 import torch
 from torch.utils.data import Dataset, DataLoader, Sampler
-from torch.utils.data.distributed import DistributedSampler
+# from torch.utils.data.distributed import DistributedSampler
+from torch.utils.data import RandomSampler
 
 from torchvision.transforms import Compose, Resize, ToTensor, Normalize, InterpolationMode
 from timm.data import create_transform
@@ -258,12 +259,13 @@ def get_dataset(args, is_train, max_txt_length=64, epoch_id=0):
     )
 
     batch_size = args.batch_size if is_train else args.valid_batch_size
-    global_batch_size = batch_size * torch.distributed.get_world_size()
+    global_batch_size = batch_size #* torch.distributed.get_world_size()
     pad_dataset(dataset, global_batch_size)
 
     num_samples = dataset.dataset_len
-    sampler = DistributedSampler(dataset, shuffle=True, seed=args.seed)
-    sampler.set_epoch(epoch_id if is_train else 0)
+    # sampler = DistributedSampler(dataset, shuffle=True, seed=args.seed)
+    # sampler.set_epoch(epoch_id if is_train else 0)
+    sampler = RandomSampler()
 
     dataloader = DataLoader(
         dataset,

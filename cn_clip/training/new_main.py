@@ -27,6 +27,7 @@ from cn_clip.training.new_data import get_data
 from cn_clip.training.params import parse_args
 from cn_clip.training.logger import setup_primary_logging, setup_worker_logging
 from cn_clip.training.scheduler import cosine_lr
+from cn_clip.training.utils import set_seed
 
 os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
@@ -53,6 +54,8 @@ def torch_version_str_compare_lessequal(version1, version2):
 
 def main():
     args = parse_args()
+
+    set_seed(args.seed, deterministic=True)
 
     # Set distributed group
     args.local_device_rank = 0 #int(os.environ["LOCAL_RANK"])
@@ -273,8 +276,8 @@ def main():
         else:
             logging.info("=> no checkpoint found at '{}'".format(args.classifier_resume))
 
-    cudnn.benchmark = True
-    cudnn.deterministic = False
+    # cudnn.benchmark = True
+    # cudnn.deterministic = False
     args.should_save = (args.logs is not None and args.logs != '' and args.logs.lower() != 'none') and is_master(args)
 
     teacher_model = None
