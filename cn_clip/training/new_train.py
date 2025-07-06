@@ -169,7 +169,8 @@ def train(model, classifier_model, attn_model, data, memory_dict, speaker_list, 
     if args.freeze_vision:
         freeze_vision_bn(args, model)
 
-    dataloader, sampler = data['train'].dataloader, data['train'].sampler
+    # dataloader, sampler = data['train'].dataloader, data['train'].sampler
+    dataloader = data['train'].dataloader
     print('dataloader')
     loss_img = nn.CrossEntropyLoss()
     loss_txt = nn.CrossEntropyLoss()
@@ -177,8 +178,8 @@ def train(model, classifier_model, attn_model, data, memory_dict, speaker_list, 
     loss_img = loss_img.cuda(args.local_device_rank)
     loss_txt = loss_txt.cuda(args.local_device_rank)
     print('loss')
-    if sampler is not None:
-        sampler.set_epoch(epoch)
+    # if sampler is not None:
+    #     sampler.set_epoch(epoch)
 
     num_steps_per_epoch = dataloader.num_batches // args.accum_freq
     data_iter = iter(dataloader)
