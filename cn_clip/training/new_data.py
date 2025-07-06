@@ -15,7 +15,7 @@ import numpy as np
 
 import torch
 from torch.utils.data import Dataset, DataLoader, Sampler
-from torch.utils.data.distributed import DistributedSampler
+# from torch.utils.data.distributed import DistributedSampler
 
 from torchvision.transforms import Compose, Resize, ToTensor, Normalize, InterpolationMode
 from timm.data import create_transform
@@ -232,7 +232,7 @@ def fetch_resolution(vision_model):
 @dataclass
 class DataInfo:
     dataloader: DataLoader
-    sampler: DistributedSampler
+    # sampler: DistributedSampler
     dataset: LMDBDataset
     epoch_id: int
 
@@ -278,7 +278,8 @@ def get_dataset(args, is_train, max_txt_length=64, epoch_id=0):
     assert num_samples % dataset.global_batch_size == 0
     dataloader.num_batches = num_samples // dataset.global_batch_size
 
-    return DataInfo(dataloader, sampler, dataset, epoch_id)
+    # return DataInfo(dataloader, sampler, dataset, epoch_id)
+    return DataInfo(dataloader, dataset, epoch_id)
 
 
 def get_data(args, epoch_id=0, max_txt_length=64):

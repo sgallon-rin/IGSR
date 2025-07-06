@@ -10,7 +10,7 @@ import torch
 import lmdb
 from torchvision.transforms import Compose, Resize, ToTensor, Normalize, InterpolationMode
 from torch.utils.data import Dataset, DataLoader, SubsetRandomSampler
-from torch.utils.data.distributed import DistributedSampler
+# from torch.utils.data.distributed import DistributedSampler
 from torch.utils.data.sampler import SequentialSampler
 import torchvision.datasets as datasets
 from cn_clip.clip import tokenize
@@ -97,7 +97,7 @@ class EvalImgDataset(Dataset):
 @dataclass
 class DataInfo:
     dataloader: DataLoader
-    sampler: DistributedSampler
+    # sampler: DistributedSampler
 
 
 def get_eval_txt_dataset(args, max_txt_length=24):
