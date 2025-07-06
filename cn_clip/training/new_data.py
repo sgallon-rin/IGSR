@@ -16,7 +16,6 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader, Sampler
 from torch.utils.data.distributed import DistributedSampler
-from torch.utils.data import RandomSampler
 
 from torchvision.transforms import Compose, Resize, ToTensor, Normalize, InterpolationMode
 from timm.data import create_transform
@@ -265,14 +264,14 @@ def get_dataset(args, is_train, max_txt_length=64, epoch_id=0):
     num_samples = dataset.dataset_len
     # sampler = DistributedSampler(dataset, shuffle=True, seed=args.seed)
     # sampler.set_epoch(epoch_id if is_train else 0)
-    sampler = RandomSampler()
+    # sampler = RandomSampler()
 
     dataloader = DataLoader(
         dataset,
         batch_size=batch_size,
         pin_memory=False,
         num_workers=args.num_workers if is_train else args.valid_num_workers,
-        sampler=sampler,
+        # sampler=sampler,
     )
 
     dataloader.num_samples = num_samples
