@@ -1,5 +1,5 @@
-import torch.multiprocessing
-torch.multiprocessing.set_sharing_strategy('file_system')
+# import torch.multiprocessing
+# torch.multiprocessing.set_sharing_strategy('file_system')
 
 from math import ceil
 import os
@@ -317,7 +317,7 @@ def main():
             data = get_data(args, epoch_id=epoch + 1, max_txt_length=args.context_length)
 
         # Saving checkpoints.
-        if args.should_save and num_steps_this_epoch > 0:
+        if args.save_checkpoint and args.should_save and num_steps_this_epoch > 0:
             if (epoch + 1) == args.max_epochs or (
                     args.save_epoch_frequency > 0 and ((epoch + 1) % args.save_epoch_frequency) == 0
             ):
