@@ -146,6 +146,7 @@ def parse_args():
         default=False,
         help="Use this flag to skip the learning rate decay.",
     )
+    parser.add_argument("--save-checkpoint", default=False, action="store_true", help="Save checkpoint.")
     parser.add_argument(
         "--save-epoch-frequency", type=int, default=1, help="How often to save checkpoints by epochs."
     )

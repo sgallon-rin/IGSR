@@ -264,7 +264,7 @@ def train(model, classifier_model, attn_model, data, memory_dict, speaker_list, 
                 f"Global Batch Size: {batch_size * args.world_size}"
             )
 
-        if args.should_save and args.save_step_frequency > 0 and ((step + 1) % args.save_step_frequency) == 0:
+        if args.save_checkpoint and args.should_save and args.save_step_frequency > 0 and ((step + 1) % args.save_step_frequency) == 0:
             save_path = os.path.join(args.checkpoint_path, f"epoch_{epoch + 1}_{step + 1}.pt")
             t1 = time.time()
             torch.save(
