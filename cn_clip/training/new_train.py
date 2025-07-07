@@ -9,7 +9,7 @@ from tqdm import tqdm
 from sklearn.metrics import accuracy_score, precision_score, f1_score, confusion_matrix
 import numpy as np
 from sklearn.metrics import average_precision_score
-
+from tqdm import tqdm
 import torch.optim as optim
 import torch
 import torch.nn as nn
@@ -195,7 +195,7 @@ def train(model, classifier_model, attn_model, data, memory_dict, speaker_list, 
     end = time.time()
     epoch_trained_steps = 0
     print('num:',dataloader.num_batches)
-    for i in range(0, dataloader.num_batches):
+    for i in tqdm(range(dataloader.num_batches)):
         batch = next(data_iter)
         i_accum = i // args.accum_freq
         step = num_steps_per_epoch * epoch + i_accum
@@ -478,9 +478,9 @@ def evaluate(model, data, epoch, args,classifier_model,is_test=0):
     total_map = []
 
     with torch.no_grad():
-        for i in range(dataloader.num_batches):
-            print('=======================================')
-            print('i:',i,dataloader.num_batches)
+        for i in tqdm(range(dataloader.num_batches)):
+            # print('=======================================')
+            # print('i:',i,dataloader.num_batches)
             batch = next(data_iter)
 
             session_ids, image_ids, images, summarys, raw_texts, fined_intents, \
