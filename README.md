@@ -24,6 +24,7 @@ python build_lmdb_dataset_img.py --split val --type intent_style_attribute --mod
 ### 2. Start Training
 ```bash
 python3 -m torch.distributed.launch --use_env --nproc_per_node=1 --master_port=5555 cn_clip/training/main.py
+python -m cn_clip.training.new_main
 ```
 
 ## Copyright

@@ -164,6 +164,8 @@ def train(model, classifier_model, attn_model, data, memory_dict, speaker_list, 
           args, global_trained_steps, teacher_model=None):
 
     print('train')
+    model = model.cuda(args.local_device_rank)
+    classifier_model = classifier_model.cuda(args.local_device_rank)
     model.train()
     classifier_model.train()
     if args.freeze_vision:
@@ -209,9 +211,11 @@ def train(model, classifier_model, attn_model, data, memory_dict, speaker_list, 
         all_image_features,imgid2intent, origin_text = batch
 
         images = images.cuda(args.local_device_rank, non_blocking=True)
+        summarys = summarys.cuda(args.local_device_rank, non_blocking=True)
+        raw_texts = raw_texts.cuda(args.local_device_rank, non_blocking=True)
         data_time = time.time() - end
 
-        m = model.module
+        # m = model.module
 
         if args.accum_freq == 1:
             if args.precision == "amp":
@@ -256,7 +260,7 @@ def train(model, classifier_model, attn_model, data, memory_dict, speaker_list, 
                 f"Data Time: {data_time:.3f}s | " +
                 f"Batch Time: {batch_time:.3f}s | " +
                 f"LR: {optimizer.param_groups[0]['lr']:5f} | " +
-                f"logit_scale: {m.logit_scale.data:.3f} | " +
+                f"logit_scale: {model.logit_scale.data:.3f} | " +
                 f"Global Batch Size: {batch_size * args.world_size}"
             )
 
@@ -482,6 +486,11 @@ def evaluate(model, data, epoch, args,classifier_model,is_test=0):
             session_ids, image_ids, images, summarys, raw_texts, fined_intents, \
             all_image_features,imgid2intent, origin_text = batch
             print('raw_texts:',origin_text)
+
+            images = images.cuda(args.local_device_rank, non_blocking=True)
+            summarys = summarys.cuda(args.local_device_rank, non_blocking=True)
+            raw_texts = raw_texts.cuda(args.local_device_rank, non_blocking=True)
+            all_image_features = {k: v.cuda(args.local_device_rank, non_blocking=True) for k, v in all_image_features.items()}
 
             intent_features,flag = model(1, images, text=raw_texts, history=summarys,
                                     mask_ratio=args.mask_ratio)

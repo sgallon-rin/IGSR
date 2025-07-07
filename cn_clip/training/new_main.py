@@ -16,6 +16,7 @@ from torch import optim
 import torch.backends.cudnn as cudnn
 from torch.cuda.amp import GradScaler
 import sys
+from collections import OrderedDict
 
 sys.path.append('/home/sgallon/research/sticker-conv/IGSR')
 sys.path.append('/home/sgallon/research/sticker-conv/IGSR/cn_clip')
@@ -65,7 +66,7 @@ def main():
 
     # dist.init_process_group(backend="nccl")
     args.rank = 0 #dist.get_rank()
-    # args.world_size = dist.get_world_size()
+    args.world_size = 1 #dist.get_world_size()
 
     # Set output path
     time_suffix = strftime("%Y-%m-%d-%H-%M-%S", gmtime())
@@ -224,8 +225,15 @@ def main():
            
             checkpoint = torch.load(args.resume, map_location="cpu")
             sd = {k: v for k, v in checkpoint["state_dict"].items() if "bert.pooler" not in k}
-           
-            resize_pos_embed(sd, model, prefix="module.")
+            new_state_dict = OrderedDict()
+            for k, v in sd.items():
+                name = k
+                if k.startswith("module."):
+                    name = k[7:]  # remove 'module.'    
+                new_state_dict[name] = v
+            sd = new_state_dict
+            # resize_pos_embed(sd, model, prefix="module.")
+            resize_pos_embed(sd, model, prefix="")
             # Adapt flash attention
             if args.use_flash_attention:
                 sd = convert_state_dict(sd)
@@ -256,7 +264,15 @@ def main():
             )
             checkpoint = torch.load(args.classifier_resume, map_location="cpu")
             sd = {k: v for k, v in checkpoint["state_dict"].items() if "bert.pooler" not in k}
-            resize_pos_embed(sd, classifier_model, prefix="module.")
+            new_state_dict = OrderedDict()
+            for k, v in sd.items():
+                name = k
+                if k.startswith("module."):
+                    name = k[7:]  # remove 'module.'    
+                new_state_dict[name] = v
+            sd = new_state_dict
+            # resize_pos_embed(sd, classifier_model, prefix="module.")
+            resize_pos_embed(sd, classifier_model, prefix="")
             if args.use_flash_attention:
                 sd = convert_state_dict(sd)
             classifier_model.load_state_dict(sd)
